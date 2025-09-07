@@ -5,10 +5,21 @@ import {
   HydrationBoundary,
   QueryClient,
 } from "@tanstack/react-query";
+import { Metadata } from "next";
 
 type Props = {
   params: Promise<{ slug: string[] }>;
 };
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = await params;
+  const category = slug?.[0];
+
+  return {
+    title: `Notes with ${category} category`,
+    description: `Notes with ${category} category`,
+  };
+}
 
 
 export default async function Notes({ params }: Props) {

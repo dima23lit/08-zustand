@@ -2,6 +2,12 @@
 
 import Link from 'next/link';
 import css from '@/app/not-found.module.css'
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Not Found Page",
+  description: "Sorry, but Page is not found",
+};
 
 const NotFound = () => {
   return (
