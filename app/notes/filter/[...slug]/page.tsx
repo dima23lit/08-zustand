@@ -13,11 +13,24 @@ type Props = {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const category = slug?.[0];
+  const note = slug?.[0];
 
   return {
-    title: `Notes with ${category} category`,
-    description: `Notes with ${category} category`,
+    title: `Notes with ${note} category`,
+    description: `Notes with ${note} category`,
+    openGraph: {
+    title: `Notes with ${note} category`,
+    description: `Notes with ${note} category`,
+    url: `https://08-zustand-aiv1.vercel.app/notes/filter/${note}`,
+    images: [
+      {
+        url: "https://ac.goit.global/fullstack/react/notehub-og-meta.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Note Hub Logo",
+      },
+    ],
+  },
   };
 }
 
