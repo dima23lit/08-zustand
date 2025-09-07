@@ -5,8 +5,8 @@ import css from '@/app/not-found.module.css'
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Not Found Page",
-  description: "Sorry, but Page is not found",
+  title: "404 - Page Not Found",
+  description: "The page you are looking for does not exist.",
 };
 
 const NotFound = () => {
