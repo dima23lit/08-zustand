@@ -6,10 +6,11 @@ import { useQuery, keepPreviousData  } from '@tanstack/react-query'
 import NoteList from "@/components/NoteList/NoteList"
 import { useState } from "react"
 import Pagination from "@/components/Pagination/Pagination"
-import NoteForm from "@/components/NoteForm/NoteForm"
-import Modal from "@/components/Modal/Modal"
+// import NoteForm from "@/components/NoteForm/NoteForm"
+// import Modal from "@/components/Modal/Modal"
 import SearchBox from "@/components/SearchBox/SearchBox"
 import { useDebouncedCallback } from 'use-debounce';
+import Link from "next/link"
 
 type Props = {
   tag: string;
@@ -18,10 +19,10 @@ type Props = {
 export default function NotesPage({ tag }: Props) {
 
     const [currentPage, setCurrentPage] = useState(1);
-    const [isModalOpen, setIsModalOpen] = useState(false);
+    // const [isModalOpen, setIsModalOpen] = useState(false);
     const [searchQuery, setSearchQuery] = useState("");
-    const openModal = () => setIsModalOpen(true);
-    const closeModal = () => setIsModalOpen(false);
+    // const openModal = () => setIsModalOpen(true);
+    // const closeModal = () => setIsModalOpen(false);
 
     const debouncedSetSearchQuery = useDebouncedCallback((query: string) => {
         setSearchQuery(query);
@@ -51,14 +52,9 @@ export default function NotesPage({ tag }: Props) {
             <header className={css.toolbar}>
                 <SearchBox text={searchQuery}  onSearch={debouncedSetSearchQuery} />
                 {notes.length > 0  && <Pagination totalPages={totalPages} onPageChange={handlePageChange} forcePage={currentPage - 1}/>}
-                <button className={css.button} onClick={openModal}>Create note +</button>
+                <button className={css.button}><Link href='/notes/action/create' className={css.btnLink}>Create Note</Link></button>
             </header>
             {notes.length > 0 && <NoteList notes={notes} />}
-            {isModalOpen && (
-                <Modal onClose={closeModal}>
-                    <NoteForm onClose={closeModal} onSuccess={closeModal} />
-                </Modal>
-      )}
         </div>
     )
 }
