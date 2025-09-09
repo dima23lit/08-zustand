@@ -3,10 +3,10 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Create Note",
-  description: "Create Note",
+  description: "You can create your note",
   openGraph: {
-    title: "NoteHab",
-    description: "Welcome to NoteHab",
+    title: "Create Note",
+    description: "You can create your note",
     url: "https://08-zustand-aiv1.vercel.app/notes/action/create",
     images: [
       {

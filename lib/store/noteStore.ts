@@ -8,7 +8,7 @@ type NoteFormData = {
 };
 
 type NoteStore = {
-  noteForm: NoteFormData;
+  draft: NoteFormData;
   updateForm: (title: string, content: string, tag: NoteFormData["tag"]) => void;
   clearDraft: () => void;
 };
@@ -16,19 +16,19 @@ type NoteStore = {
 export const useNoteStore = create<NoteStore>()(
   persist(
     (set) => ({
-      noteForm: {
+      draft: {
         title: "",
         content: "",
         tag: "Todo",
       },
       updateForm: (title, content, tag) =>
-        set({ noteForm: { title, content, tag } }),
+        set({ draft: { title, content, tag } }),
       clearDraft: () =>
-        set({ noteForm: { title: "", content: "", tag: "Todo" } }),
+        set({ draft: { title: "", content: "", tag: "Todo" } }),
     }),
     {
       name: "note-draft",
-      partialize: (state) => ({ noteForm: state.noteForm }),
+      partialize: (state) => ({ draft: state.draft }),
     }
   )
 );

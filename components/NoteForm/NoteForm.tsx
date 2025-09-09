@@ -9,13 +9,13 @@ export default function NoteForm() {
     const router = useRouter();
     const QueryClient = useQueryClient();
 
-    const { noteForm, clearDraft, updateForm } = useNoteStore();
+    const { draft, clearDraft, updateForm } = useNoteStore();
     
     const { mutate } = useMutation({
         mutationFn: createNote,
         onSuccess() {
             QueryClient.invalidateQueries({ queryKey: ['Note'] });
-            router.push(`/notes/filter/All`);
+            router.back();
             clearDraft();
         }
     })
@@ -25,6 +25,7 @@ export default function NoteForm() {
         e.preventDefault(); 
 
         const formData = new FormData(e.currentTarget);
+
         const form: NewNote = {
             title: formData.get("title") as string,
             content: formData.get("content") as string,
@@ -36,9 +37,9 @@ export default function NoteForm() {
     
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         updateForm(
-            e.target.name === "title" ? e.target.value : noteForm.title,
-            e.target.name === "content" ? e.target.value : noteForm.content,
-            e.target.name === "tag" ? e.target.value as NewNote["tag"] : noteForm.tag
+            e.target.name === "title" ? e.target.value : draft.title,
+            e.target.name === "content" ? e.target.value : draft.content,
+            e.target.name === "tag" ? e.target.value as NewNote["tag"] : draft.tag
         );
     };
 
@@ -47,7 +48,7 @@ export default function NoteForm() {
         <form className={css.form} onSubmit={handleSubmit}>
         <div className={css.formGroup}>
             <label htmlFor="title">Title</label>
-            <input id="title" type="text" name="title" className={css.input} onChange={handleInputChange} value={noteForm.title}/>
+            <input id="title" type="text" name="title" className={css.input} onChange={handleInputChange} value={draft.title}/>
             <span className={css.error} />
         </div>
         <div className={css.formGroup}>
@@ -58,13 +59,13 @@ export default function NoteForm() {
                 rows={8}
                 className={css.textarea}
                 onChange={handleInputChange}
-                value={noteForm.content}
+                value={draft.content}
             />
             <span className={css.error} />
         </div>
         <div className={css.formGroup}>
             <label htmlFor="tag">Tag</label>
-            <select id="tag" name="tag" className={css.select} onChange={handleInputChange} value={noteForm.tag}>
+            <select id="tag" name="tag" className={css.select} onChange={handleInputChange} value={draft.tag}>
                 <option value="Todo">Todo</option>
                 <option value="Work">Work</option>
                 <option value="Personal">Personal</option>
