@@ -20,7 +20,7 @@ export const metadata: Metadata = {
 };
 
 
-export default function CreateNotePage() {
+export default function MakeNotePage() {
   return (
     <div>
       <CreateNote />

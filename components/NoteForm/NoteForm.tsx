@@ -15,8 +15,8 @@ export default function NoteForm() {
         mutationFn: createNote,
         onSuccess() {
             QueryClient.invalidateQueries({ queryKey: ['Note'] });
-            router.back();
             clearDraft();
+            router.back();
         }
     })
 
@@ -75,7 +75,7 @@ export default function NoteForm() {
             <span className={css.error} />
         </div>
         <div className={css.actions}>
-            <button type="button" className={css.cancelButton} onClick={() => router.push("/notes/filter/All")}>
+            <button type="button" className={css.cancelButton} onClick={() => router.back()}>
                 Cancel
             </button>
             <button
